@@ -2,7 +2,7 @@
 
 ## 描述
 
-一个简介清爽的任务清单微信小程序，使用[i-view]](https://github.com/TalkingData/iview-weapp)UI组件库，目前已完成前端基本页面。
+一个简介清爽的任务清单微信小程序，使用[i-view](https://github.com/TalkingData/iview-weapp)UI组件库，目前已完成前端基本页面。
 
 ## 特色
 
