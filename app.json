@@ -1,0 +1,33 @@
+{
+  "pages":[
+    "pages/info/info",
+    "pages/index/index",
+    "pages/add/add",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Yett",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar":{
+    "color": "#80848f",
+    "selectedColor": "#2d8cf0",
+    "backgroundColor": "#fff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "Tasks",
+        "iconPath": "static/image/tasks.png",
+        "selectedIconPath": "static/image/tasks_blue.png"
+      },{
+        "pagePath": "pages/info/info",
+        "text": "My",
+        "iconPath": "static/image/user.png",
+        "selectedIconPath": "static/image/user_blue.png"
+      }
+    ]
+  }
+}

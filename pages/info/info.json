@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "i-avatar": "../../ui/dist/avatar/index",
+    "i-cell-group": "../../ui/dist/cell-group/index",
+    "i-cell": "../../ui/dist/cell/index",
+    "i-icon": "../../ui/dist/icon/index",
+    "i-tab-bar": "../../ui/dist/tab-bar/index",
+    "i-tab-bar-item": "../../ui/dist/tab-bar-item/index"
+  }
+}

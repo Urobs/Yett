@@ -1,0 +1,13 @@
+{
+  "usingComponents": {
+    "i-button": "../../ui/dist/button/index",
+    "i-card": "../../ui/dist/card/index",
+    "i-swipeout": "../../ui/dist/swipeout/index",
+    "i-count-down": "../../ui/dist/count-down/index",
+    "i-icon": "../../ui/dist/icon/index",
+    "i-action-sheet": "../../ui/dist/action-sheet/index",
+    "i-load-more": "../../ui/dist/load-more/index",
+    "i-tab-bar": "../../ui/dist/tab-bar/index",
+    "i-tab-bar-item": "../../ui/dist/tab-bar-item/index"
+  }
+}

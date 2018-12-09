@@ -1,0 +1,50 @@
+<!--index.wxml-->
+<scroll-view class="container" scroll-y="{{true}}" lower-threshold="50px">
+  <i-action-sheet visible="{{finish}}" actions="{{actionFinish}}" show-cancel bind:cancel="handleFinishCancel" bind:click="handleFinish" mask-closable="{{ false }}">
+    <view slot="header" style="padding: 16px">
+      <view style="color: #444;font-size: 16px">真的已经完成了吗？</view>
+      <text style="color: #80848f;font-size: 10px">加油鸭</text>
+    </view>
+  </i-action-sheet>
+  <i-action-sheet visible="{{delete}}" actions="{{actionDelete}}" show-cancel bind:cancel="handleDeleteCancel" bind:click="handleDelete" mask-closable="{{ false }}">
+    <view slot="header" style="padding: 16px">
+      <view style="color: #444;font-size: 16px">真的要放弃吗？</view>
+      <text style="color: #80848f;font-size: 10px">坚持一下说不定就完成了呢</text>
+    </view>
+  </i-action-sheet>
+  <view class="todo-list" wx:for="{{toDos}}" wx:key="unique">
+    <i-swipeout i-class="swipeout-box" toggle="{{toggle}}">
+      <view i-class="swipeout-content" slot="content">
+        <view class="todo-image">
+          <i-icon type="task" size="25" color="#f8f8f9"></i-icon>
+        </view>
+        <view class="todo">
+          <text>{{item.todo}}</text>
+          <i-count-down
+                  target="{{targetTime}}"
+                  format="{{timeFormat}}"
+                  countdown-class="time-left"
+                  clear-timer="{{clearTimer}}"
+          ></i-count-down>
+        </view>
+      </view>
+      <view class="swipeout-btn-group" slot="button" data-id="{{index}}" bindtap="changeToDoId">
+        <view class="swipeout-btn finish" style="width:80px" bindtap="finishToDo"><i-icon size="25" type="success"></i-icon></view>
+        <view class="swipeout-btn delete" style="width:80px" bindtap="deleteToDo"><i-icon size="25" type="trash"></i-icon></view>
+      </view>
+    </i-swipeout>
+  </view>
+  <view class="load-more">
+  <i-load-more i-class="load-more" loading="{{isLoading}}"></i-load-more>
+  </view>
+</scroll-view>
+<view class="float-btn {{touchBtn?'float-btn-active':'float-btn-default'}}" bind:touchstart="btnActive" bind:touchend="btnStop" bind:touchcancel="btnStop" bind:tap="addTodo">
+  <i-icon type="brush" size="25" color="#f8f8f9"/>
+</view>
+<view class="tab-bar-box">
+  <i-tab-bar current="{{ currentPage }}" bindchange="handleTabChange" i-class="tab-bar" fixd="{{true}}">
+    <i-tab-bar-item key="index" icon="createtask" current-icon="createtask_fill" title="Tasks"></i-tab-bar-item>
+    <i-tab-bar-item key="info" icon="mine" current-icon="mine_fill" title="My"></i-tab-bar-item>
+  </i-tab-bar>
+</view>
+

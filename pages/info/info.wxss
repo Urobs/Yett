@@ -1,0 +1,43 @@
+.info-container {
+  width: 100%;
+  background-color: #f8f8f9;
+  height: 100%;
+}
+
+.info {
+  width: 100%;
+  height: 93%;
+}
+
+.user-info {
+  width: 100%;
+  margin-bottom: 20%; 
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  margin: auto; 
+  padding-top: 15px;
+}
+
+.user-nickName {
+  font-size: 12px;
+  width: 100%;
+  height: 20px;
+}
+
+.info-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.icon {
+  float: left;
+}

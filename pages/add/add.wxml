@@ -1,0 +1,34 @@
+<view class="form-container">
+  <form>
+    <view class="selectTodoNum">
+      <view class="page-icon">
+        <i-icon type="createtask" size="28" color="#2b85e4"/>
+        <text class="icon-text">新建任务</text>
+      </view>
+      <i-panel title="任务数量" i-class="title"></i-panel>
+      <i-input-number value="{{todoNum}}" min="1" max="10" bindchange="changeNum" i-class="todoNum"/>
+    </view>
+    <view class="task-view" wx:for="{{todoNum}}" wx:key="item.id">
+      <i-panel title="任务{{index+1}}" i-class="task-title"></i-panel>
+        <i-input value="{{todo}}" title="任务{{index+1}}描述" type="textarea" placeholder="请简洁地描述你的任务(25字以内)" maxlength="50"></i-input>
+        <i-panel title="任务{{index+1}}权重">
+          <i-radio-group current="{{tasks[index].current}}" data-id="{{index}}" bindchange="changeWeight" i-calss="weight-box">
+            <i-radio 
+              wx:for="{{todoWeight}}" 
+              position="left"
+              wx:key="{{item.weight}}"
+              value="{{item.describe}}"
+              i-class="singal-radio-{{item.weight}}"
+              color="{{(item.weight===3)?'#2b85e4':((item.weight===2)?'#2DA5EF':(item.weight===1)?'#5cadff':'#2B74E2')}}">
+            </i-radio>
+          </i-radio-group>
+        </i-panel>
+        <i-panel title="逾期时间(点击下方时间设置)">
+          <picker mode="time" value="{{endTimes[index].time}}" start="{{startTime}}" end="24:00" data-id="{{index}}" bindchange="timeChange" class="timePicker">
+            <view class="timeshow">{{endTimes[index].time}}</view>
+          </picker>
+        </i-panel>
+    </view>
+    <i-button bind:click="submitData" type="primary" size="small" i-class="submit-btn">提交</i-button>
+  </form>
+</view>

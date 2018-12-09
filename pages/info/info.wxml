@@ -1,0 +1,27 @@
+<view class="info-container">
+  <view class="info">
+    <view class="user-info">
+      <view class="user-avatar">
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+      <open-data type="userNickName" lang="zh_CN" style="text-align:center" class="user-nickName"></open-data>
+    </view>
+    <i-cell-group>
+      <i-cell title="已完成的任务" is-link url="/pages/show/show?case=finish" only-tap-footer link-type="navigateTo" value="{{finishNum}}">
+        <i-icon type="right" i-class="icon" slot="icon" color="#19be6b"/>
+      </i-cell>
+      <i-cell title="逾期任务" is-link url="/pages/show/show?case=fail" only-tap-footer link-type="navigateTo" value="{{expireNum}}">
+        <i-icon type="close" i-class="icon" slot="icon" color="#ed3f14"/>
+      </i-cell>
+      <i-cell title="历史任务" is-link url="/pages/show/show?case=history" only-tap-footer link-type="navigateTo" value="{{historyNum}}">
+        <i-icon type="other" i-class="icon" slot="icon" color="#2d8cf0"/>
+      </i-cell>
+    </i-cell-group>
+  </view>
+  <view class="tab-bar-box">
+    <i-tab-bar current="{{ currentPage }}" bindchange="handleTabChange" i-class="tab-bar" fixd="{{true}}">
+      <i-tab-bar-item key="index" icon="createtask" current-icon="createtask_fill" title="Tasks"></i-tab-bar-item>
+      <i-tab-bar-item key="info" icon="mine" current-icon="mine_fill" title="My"></i-tab-bar-item>
+    </i-tab-bar>
+  </view>
+</view>
