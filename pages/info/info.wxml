@@ -18,10 +18,4 @@
       </i-cell>
     </i-cell-group>
   </view>
-  <view class="tab-bar-box">
-    <i-tab-bar current="{{ currentPage }}" bindchange="handleTabChange" i-class="tab-bar" fixd="{{true}}">
-      <i-tab-bar-item key="index" icon="createtask" current-icon="createtask_fill" title="Tasks"></i-tab-bar-item>
-      <i-tab-bar-item key="info" icon="mine" current-icon="mine_fill" title="My"></i-tab-bar-item>
-    </i-tab-bar>
-  </view>
 </view>

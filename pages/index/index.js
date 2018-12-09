@@ -1,12 +1,8 @@
-//index.js
-//获取应用实例
-const handleTabChange = require('../../utils/change_tab_page');
 const app = getApp();
 
 Page({
   data: {
     touchBtn: false,
-    currentPage: 'index',
     idLoading: true,
     toDoIdNow: 0,
     toggle: false,
@@ -161,7 +157,6 @@ Page({
       });
     }, 2000);
   },
-  handleTabChange,
   btnActive: function() {
     this.setData({
       touchBtn: true
