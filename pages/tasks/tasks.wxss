@@ -1,0 +1,9 @@
+.list-container {
+  width: 100%;
+  background-color: #f8f8f9;
+  height: 100%;
+}
+
+.item {
+  border-bottom: 0.5px solid #e9eaec;
+}
