@@ -12,16 +12,16 @@
       <text style="color: #80848f;font-size: 10px">坚持一下说不定就完成了呢</text>
     </view>
   </i-action-sheet>
-  <view class="todo-list" wx:for="{{toDos}}" wx:key="unique">
+  <view class="todo-list" wx:for="{{toDos}}" wx:key="id">
     <i-swipeout i-class="swipeout-box" toggle="{{toggle}}">
       <view i-class="swipeout-content" slot="content">
         <view class="todo-image">
           <i-icon type="task" size="25" color="#f8f8f9"></i-icon>
         </view>
         <view class="todo">
-          <text>{{item.todo}}</text>
+          <text>{{item.content}}</text>
           <i-count-down
-                  target="{{targetTime}}"
+                  target="{{todo.expireTime}}"
                   format="{{timeFormat}}"
                   countdown-class="time-left"
                   clear-timer="{{clearTimer}}"

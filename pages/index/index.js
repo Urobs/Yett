@@ -1,50 +1,15 @@
+const formatTodo = require('../../utils/format_todo');
 const app = getApp();
 
 Page({
   data: {
+    offset: 0,
+    limit: 10,
     touchBtn: false,
     idLoading: true,
     toDoIdNow: 0,
     toggle: false,
-    toDos: [
-      {
-        todo: 'fasfasfa0',
-        expires: 3000,
-        unique: 'u0'
-      }, {
-        todo: 'fafafsafqwweqwrqrw1',
-        expires: 3000,
-        unique: 'u1'
-      }, {
-        todo: 'fafafsafqwweqwrqrw2',
-        expires: 3000,
-        unique: 'u3'
-      }, {
-        todo: 'fafafsafqwweqwrqrw3',
-        expires: 3000,
-        unique: 'u4'
-      }, {
-        todo: 'fafafsafqwweqwrqrw4',
-        expires: 3000,
-        unique: 'u5'
-      }, {
-        todo: 'fafafsafqwweqwrqrw5',
-        expires: 3000,
-        unique: 'u6'
-      }, {
-        todo: 'fafafsafqwweqwrqrw6',
-        expires: 3000,
-        unique: 'u7'
-      }, {
-        todo: 'fafafsafqwweqwrqrw7',
-        expires: 3000,
-        unique: 'u8'
-      }, {
-        todo: 'fafafsafqwweqwrqrw8',
-        expires: 3000,
-        unique: 'u9'
-      }
-    ],
+    toDos: null,
     targetTime: 0,
     formatTime: ['时', '分', '秒'],
     clearTimer: false,
@@ -67,72 +32,57 @@ Page({
       }
     ]
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
   onLoad: function () {
-    this.setData({
-      isLoading: false
-    })
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
+    const { authorization } = app.globalData;
+    const { offset, limit } = this.data;
+    let toDos = null;
+    wx.request({
+      url: 'http://localhost:3000/api/tasks',
+      header: {
+        authorization
+      },
+      data: {
+        sort: 'all',
+        limit,
+        offset
+      },
+      success(res) {
+        if (res.statusCode === 200) {
+          toDos = formatTodo(res.data.rows);
         }
-      })
-    }
+      }
+    });
     this.setData({
-      targetTime: new Date().getTime() + 1000 * 60 * 120
-    })
+      isLoading: false,
+      toDos
+    });
   },
   changeToDoId: function(e) {
     this.setData({
       toDoIdNow: e.currentTarget.dataset.id
-    })
+    });
   },
   finishToDo: function() {
     this.setData({
       finish: true
-    })
+    });
   },
   deleteToDo: function() {
     this.setData({
       delete: true
-    })
+    });
   },
   handleFinishCancel: function() {
     this.setData({
       finish: false,
       toggle: this.data.toggle ? false : true
-    })
+    });
   },
   handleDeleteCancel: function() {
     this.setData({
       delete: false,
       toggle: this.data.toggle ? false : true
-    })
+    });
   },
   handleFinish: function() {
     
@@ -144,7 +94,7 @@ Page({
     action[0].loading = true;
     this.setData({
       actionDelete: action
-    })
+    });
     toDos.splice(id, 1);
     // 模拟promise异步
     setTimeout(() => {
@@ -160,16 +110,16 @@ Page({
   btnActive: function() {
     this.setData({
       touchBtn: true
-    })
+    });
   },
   btnStop: function() {
     this.setData({
       touchBtn: false
-    })
+    });
   },
   addTodo: function() {
     wx.navigateTo({
       url: '../add/add'
-    })
+    });
   }
 })
