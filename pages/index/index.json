@@ -6,6 +6,7 @@
     "i-count-down": "../../ui/dist/count-down/index",
     "i-icon": "../../ui/dist/icon/index",
     "i-action-sheet": "../../ui/dist/action-sheet/index",
-    "i-load-more": "../../ui/dist/load-more/index"
+    "i-load-more": "../../ui/dist/load-more/index",
+    "i-message": "../../ui/dist/message/index"
   }
 }

@@ -1,4 +1,6 @@
 <view class="form-container">
+  <i-message id="message" />
+  <i-toast id="toast" />
   <form>
     <view class="selectTodoNum">
       <view class="page-icon">
@@ -6,14 +8,14 @@
         <text class="icon-text">新建任务</text>
       </view>
       <i-panel title="任务数量" i-class="title"></i-panel>
-      <i-input-number value="{{todoNum}}" min="1" max="10" bindchange="changeNum" i-class="todoNum"/>
+      <i-input-number value="{{tasks.length}}" min="1" max="10" bindchange="changeTaskNum" i-class="todoNum"/>
     </view>
-    <view class="task-view" wx:for="{{todoNum}}" wx:key="item.id">
+    <view class="task-view" wx:for="{{tasks}}" wx:key="item.id">
       <i-panel title="任务{{index+1}}" i-class="task-title"></i-panel>
-        <i-input value="{{todo}}" title="任务{{index+1}}描述" type="textarea" placeholder="请简洁地描述你的任务(25字以内)" maxlength="50"></i-input>
+        <i-input value="{{todo}}" title="任务{{index+1}}描述" type="textarea" placeholder="请简洁地描述你的任务(25字以内)" maxlength="25" bind:change="onInput" autofocus="true" error="{{isInputNull}}"></i-input>
         <i-panel title="任务{{index+1}}权重">
-          <i-radio-group current="{{tasks[index].current}}" data-id="{{index}}" bindchange="changeWeight" i-calss="weight-box">
-            <i-radio 
+          <i-radio-group current="{{todoWeight[item.weight-1].describe}}" data-id="{{index}}" bindchange="changeWeight" i-calss="weight-box">
+            <i-radio
               wx:for="{{todoWeight}}" 
               position="left"
               wx:key="{{item.weight}}"
@@ -24,8 +26,8 @@
           </i-radio-group>
         </i-panel>
         <i-panel title="逾期时间(点击下方时间设置)">
-          <picker mode="time" value="{{endTimes[index].time}}" start="{{startTime}}" end="24:00" data-id="{{index}}" bindchange="timeChange" class="timePicker">
-            <view class="timeshow">{{endTimes[index].time}}</view>
+          <picker mode="time" value="{{item.expireTime}}" start="{{startTime}}" end="24:00" data-id="{{index}}" bindchange="timeChange" class="timePicker">
+            <view class="timeshow">{{item.expireTime}}</view>
           </picker>
         </i-panel>
     </view>

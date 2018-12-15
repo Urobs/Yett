@@ -6,6 +6,8 @@
     "i-radio-group": "../../ui/dist/radio-group/index",
     "i-icon": "../../ui/dist/icon/index",
     "i-radio": "../../ui/dist/radio/index",
-    "i-button": "../../ui/dist/button/index"
+    "i-button": "../../ui/dist/button/index",
+    "i-message": "../../ui/dist/message/index",
+    "i-toast": "../../ui/dist/toast/index"
   }
 }

@@ -1,4 +1,5 @@
 const formatTodo = require('../../utils/format_todo');
+const { $Message } = require('../../ui/dist/base/index');
 const app = getApp();
 
 Page({
@@ -8,12 +9,19 @@ Page({
     touchBtn: false,
     idLoading: true,
     toDoIdNow: 0,
+    taskIdNow: 0,
     toggle: false,
-    toDos: null,
+    toDos: [],
     targetTime: 0,
     formatTime: ['时', '分', '秒'],
     clearTimer: false,
     finish: false,
+    weightColor: {
+      1: '#5cadff',
+      2: '#2DA5EF',
+      3: '#2b85e4',
+      4: '#2B74E2'
+    },
     actionFinish: [
       {
         name: '我已经完成喽！',
@@ -33,33 +41,69 @@ Page({
     ]
   },
   onLoad: function () {
+      this.setData({
+        isLoading: false
+      });
+  },
+  onPullDownRefresh() {
+    const that = this;
+    this.getTodayData().then(toDos => {
+      that.setData({
+        toDos
+      });
+      wx.stopPullDownRefresh();
+    }).catch(err => {
+      console.log(err);
+      alertError()
+      wx.stopPullDownRefresh();
+    });
+  },
+  onShow() {
+    wx.startPullDownRefresh();    
+  },
+  getTodayData() {
     const { authorization } = app.globalData;
     const { offset, limit } = this.data;
     let toDos = null;
-    wx.request({
-      url: 'http://localhost:3000/api/tasks',
-      header: {
-        authorization
-      },
-      data: {
-        sort: 'all',
-        limit,
-        offset
-      },
-      success(res) {
-        if (res.statusCode === 200) {
-          toDos = formatTodo(res.data.rows);
+    return new Promise((reslove, reject) => {
+      wx.request({
+        url: 'http://localhost:3000/api/tasks',
+        header: {
+          authorization
+        },
+        data: {
+          sort: 'today',
+          limit,
+          offset
+        },
+        success(res) {
+          if (res.statusCode === 200) {
+            toDos = formatTodo(res.data.rows);
+            reslove(toDos);
+          } else {  
+            reject(res);
+          }
         }
-      }
-    });
-    this.setData({
-      isLoading: false,
-      toDos
+      });
     });
   },
+  alertSuccess(msg='') {
+    $Message({
+      content: msg || '刷新成功',
+      type: 'success'
+    });
+  },
+  alertError(msg='') {
+    $Message({
+      content: msg || '刷新失败',
+      type: 'error'
+    })
+  },
   changeToDoId: function(e) {
+    console.log(e.currentTarget.dataset);
     this.setData({
-      toDoIdNow: e.currentTarget.dataset.id
+      toDoIdNow: e.currentTarget.dataset.id,
+      taskIdNow: e.currentTarget.dataset.taskid
     });
   },
   finishToDo: function() {
@@ -88,24 +132,39 @@ Page({
     
   },
   handleDelete: function() {
+    const that = this;
     const id = this.data.toDoIdNow;
+    const taskId = this.data.taskIdNow;
     const toDos = this.data.toDos;
     const action = [...this.data.actionDelete];
+    const { authorization } = app.globalData;
     action[0].loading = true;
     this.setData({
       actionDelete: action
     });
     toDos.splice(id, 1);
     // 模拟promise异步
-    setTimeout(() => {
-      action[0].loading = false;
-      this.setData({
-          delete: false,
-          toDos: toDos,
-          actionDelete: action,
-          toggle: this.data.toggle ? false : true
-      });
-    }, 2000);
+    wx.request({
+      url: 'http://localhost:3000/api/tasks/'+taskId,
+      method: 'DELETE',
+      header: {
+        authorization
+      },
+      success(res) {
+        if (res.statusCode === 200) {
+          action[0].loading = false;
+          that.setData({
+              delete: false,
+              toDos: toDos,
+              actionDelete: action,
+              toggle: that.data.toggle ? false : true
+          });
+          that.alertSuccess('删除成功');
+        } else {
+          that.alertError('删除失败');
+        }
+      }
+    });
   },
   btnActive: function() {
     this.setData({

@@ -31,6 +31,7 @@ App({
         }
       });
     } else {
+      console.log('从缓存中获取token');
       const token = wx.getStorageSync('token');
       that.globalData.authorization = 'Bearer ' + token;
     }
