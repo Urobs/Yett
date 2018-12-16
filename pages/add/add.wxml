@@ -12,7 +12,7 @@
     </view>
     <view class="task-view" wx:for="{{tasks}}" wx:key="item.id">
       <i-panel title="任务{{index+1}}" i-class="task-title"></i-panel>
-        <i-input value="{{todo}}" title="任务{{index+1}}描述" type="textarea" placeholder="请简洁地描述你的任务(25字以内)" maxlength="25" bind:change="onInput" autofocus="true" error="{{isInputNull}}"></i-input>
+        <i-input value="{{todo}}" title="任务{{index+1}}描述" type="textarea" placeholder="请简洁地描述你的任务(25字以内)" maxlength="25" bind:change="onInput" error="{{isInputNull}}"></i-input>
         <i-panel title="任务{{index+1}}权重">
           <i-radio-group current="{{todoWeight[item.weight-1].describe}}" data-id="{{index}}" bindchange="changeWeight" i-calss="weight-box">
             <i-radio
@@ -21,7 +21,7 @@
               wx:key="{{item.weight}}"
               value="{{item.describe}}"
               i-class="singal-radio-{{item.weight}}"
-              color="{{(item.weight===3)?'#2b85e4':((item.weight===2)?'#2DA5EF':(item.weight===1)?'#5cadff':'#2B74E2')}}">
+              color="{{(item.weight===3)?'#2b85e4':((item.weight===2)?'#2DA5EF':(item.weight===1)?'#5cadff':'#2C71E0')}}">
             </i-radio>
           </i-radio-group>
         </i-panel>

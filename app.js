@@ -37,6 +37,7 @@ App({
     }
   },
   globalData: {
-    authorization: null
+    authorization: null,
+    tasks: {}
   }
 })

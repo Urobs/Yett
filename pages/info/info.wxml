@@ -7,10 +7,10 @@
       <open-data type="userNickName" lang="zh_CN" style="text-align:center" class="user-nickName"></open-data>
     </view>
     <i-cell-group>
-      <i-cell title="已完成的任务" is-link url="/pages/tasks/tasks?case=finish" only-tap-footer link-type="navigateTo" value="{{finishNum}}">
+      <i-cell title="已完成的任务" is-link url="/pages/tasks/tasks?case=finish" only-tap-footer link-type="navigateTo" value="{{finishedNum}}">
         <i-icon type="right" i-class="icon" slot="icon" color="#19be6b"/>
       </i-cell>
-      <i-cell title="逾期任务" is-link url="/pages/tasks/tasks?case=fail" only-tap-footer link-type="navigateTo" value="{{expireNum}}">
+      <i-cell title="逾期任务" is-link url="/pages/tasks/tasks?case=fail" only-tap-footer link-type="navigateTo" value="{{expiredNum}}">
         <i-icon type="close" i-class="icon" slot="icon" color="#ed3f14"/>
       </i-cell>
       <i-cell title="历史任务" is-link url="/pages/tasks/tasks?case=history" only-tap-footer link-type="navigateTo" value="{{historyNum}}">

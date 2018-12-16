@@ -1,6 +1,7 @@
 <!--index.wxml-->
 <scroll-view class="container" scroll-y="{{true}}" lower-threshold="50px">
   <i-message id="message" />
+  <i-toast id="toast" />
   <i-action-sheet visible="{{finish}}" actions="{{actionFinish}}" show-cancel bind:cancel="handleFinishCancel" bind:click="handleFinish" mask-closable="{{ false }}">
     <view slot="header" style="padding: 16px">
       <view style="color: #444;font-size: 16px">真的已经完成了吗？</view>
@@ -14,17 +15,20 @@
     </view>
   </i-action-sheet>
   <view class="todo-list" wx:for="{{toDos}}" wx:key="id">
-    <i-swipeout i-class="swipeout-box" toggle="{{toggle}}">
+    <i-swipeout i-class="swipeout-box" toggle="{{toggle}}" swipe1="{{((item.isFinished === 'yes')||(item.isExpired === 'yes'))?false:true}}" swipe="true">
       <view i-class="swipeout-content" slot="content">
-        <view wx:if="{{item.isExpired === 'no'}}" class="todo-image" style="background-color:{{weightColor[item.weight]}};">
-          <i-icon type="task" size="25" color="#f8f8f9"></i-icon>
+        <view wx:if="{{item.isFinished === 'yes'}}" class="todo-image" style="background-color:#19be6b;">
+          <i-icon type="success" size="25" color="#f8f8f9"></i-icon>
         </view>
-        <view wx:else class="todo-image" style="background-color:#bbbec4;">
+        <view wx:elif="{{item.isExpired === 'yes'}}" class="todo-image" style="background-color:#bbbec4;">
           <i-icon type="delete" size="25" color="#f8f8f9"></i-icon>
+        </view>
+        <view wx:else class="todo-image" style="background-color:{{weightColor[item.weight]}};">
+          <i-icon type="task" size="25" color="#f8f8f9"></i-icon>
         </view>
         <view class="todo">
           <text>{{item.content}}</text>
-          <i-count-down
+          <i-count-down wx:if="{{item.isFinished === 'no'}}"
                   target="{{item.expireTime}}"
                   format="{{timeFormat}}"
                   countdown-class="time-left"
