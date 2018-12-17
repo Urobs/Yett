@@ -36,7 +36,7 @@ const markTask = ({mark, taskId}) => {
 
 Page({
   data: {
-    isLoad: false,
+    fromAdd: false,
     offset: 0,
     limit: 20,
     touchBtn: false,
@@ -75,6 +75,7 @@ Page({
   },
   onLoad: function () {
     // 检查是否有token以及是否过期
+    console.log('onload is called');
     const expiredTime = wx.getStorageSync('expiredIn') || '';
     const currentTime = new Date().getTime();
     // 如果token过期或者缓存中没有token
@@ -109,6 +110,7 @@ Page({
       const token = wx.getStorageSync('token');
       app.globalData.authorization = 'Bearer ' + token;
       authorization = app.globalData.authorization;
+      wx.startPullDownRefresh();
     }
     this.setData({
       isLoad: true,
@@ -130,8 +132,11 @@ Page({
     });
   },
   onShow() {
-    if (!this.data.isLoad) {
+    if (this.data.fromAdd) {
       wx.startPullDownRefresh();
+      this.setData({
+        fromAdd: false
+      });
     }    
   },
   getTodayData() {
@@ -363,7 +368,7 @@ Page({
       this.toast('注意休息，任务别太多喽', 'warning');
     } else {
       this.setData({
-        isLoad: false
+        fromAdd: true
       })
       wx.navigateTo({
         url: '../add/add'

@@ -1,10 +1,10 @@
 const { url, getTask } = require('../../config');
 const formatTodo = require('../../utils/format_todo');
 const app = getApp();
-const { authorization } = app.globalData;
 
 const getTasksList = (sort, limit, offset) => {
   return new Promise((resolve, reject) => {
+    const { authorization } = app.globalData;
     wx.request({
       url: url + getTask,
       data: {
