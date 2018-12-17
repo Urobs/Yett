@@ -1,7 +1,7 @@
 <view class="list-container">
   <i-panel title="{{title}}">
       <i-cel-group wx:for="{{tasks}}" wx:key="id">
-        <i-cell title="{{item.desc}}" i-class="item"></i-cell>
+        <i-cell title="{{item.content}}" i-class="item" label="{{item.createTime}}"></i-cell>
       </i-cel-group>
   </i-panel>
 </view>

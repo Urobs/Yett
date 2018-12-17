@@ -1,0 +1,19 @@
+<view class="container">
+  <i-panel title="关于">
+    <view class="describe">
+      <text class="text">
+        这个小程序由 Urob 独立开发维护，初衷是为了督促自己每天都能完成自己立的flag
+        因为技术水平有限加上开发周期短，所以不可避免地会出现bug和用户体验糟糕的地方
+        如果你对于这个程序有什么反馈和建议，甚至是吐槽的话，欢迎联系我告诉我你的想法，帮助我改善这个项目，非常感谢你！
+      </text>
+    </view>
+  </i-panel>
+  <i-cell-group i-class="contact-info">
+    <i-cell title="wechat" value="ggwp1511">
+      <i-icon type="businesscard" slot="icon" color="#ff9900"/>
+    </i-cell>
+    <i-cell title="email" value="huangweiurob@gamil.com">
+      <i-icon type="mail" slot="icon" color="#ff9900"/>
+    </i-cell>
+  </i-cell-group>
+</view>

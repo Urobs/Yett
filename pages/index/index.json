@@ -8,6 +8,8 @@
     "i-action-sheet": "../../ui/dist/action-sheet/index",
     "i-load-more": "../../ui/dist/load-more/index",
     "i-message": "../../ui/dist/message/index",
-    "i-toast": "../../ui/dist/toast/index"
+    "i-toast": "../../ui/dist/toast/index",
+    "i-panel": "../../ui/dist/panel/index",
+    "i-alert": "../../ui/dist/alert/index"
   }
 }

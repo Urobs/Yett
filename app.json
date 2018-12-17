@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/info/info",
     "pages/add/add",
-    "pages/tasks/tasks"
+    "pages/tasks/tasks",
+    "pages/about/about"
   ],
   "window":{
     "backgroundTextStyle":"light",

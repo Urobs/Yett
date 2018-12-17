@@ -2,6 +2,7 @@
 <scroll-view class="container" scroll-y="{{true}}" lower-threshold="50px">
   <i-message id="message" />
   <i-toast id="toast" />
+  <i-panel title="今日任务"></i-panel>
   <i-action-sheet visible="{{finish}}" actions="{{actionFinish}}" show-cancel bind:cancel="handleFinishCancel" bind:click="handleFinish" mask-closable="{{ false }}">
     <view slot="header" style="padding: 16px">
       <view style="color: #444;font-size: 16px">真的已经完成了吗？</view>
@@ -14,6 +15,7 @@
       <text style="color: #80848f;font-size: 10px">坚持一下说不定就完成了呢</text>
     </view>
   </i-action-sheet>
+  <view wx:if="{{toDos.length === 0}}"> <i-alert show-icon>你今天还没有任务哦~快去添加吧</i-alert> </view>
   <view class="todo-list" wx:for="{{toDos}}" wx:key="id">
     <i-swipeout i-class="swipeout-box" toggle="{{toggle}}" swipe1="{{((item.isFinished === 'yes')||(item.isExpired === 'yes'))?false:true}}" swipe="true">
       <view i-class="swipeout-content" slot="content">

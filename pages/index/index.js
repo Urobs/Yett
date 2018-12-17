@@ -174,7 +174,6 @@ Page({
     })
   },
   changeToDoId: function(e) {
-    console.log(e.currentTarget.dataset);
     this.setData({
       toDoIdNow: e.currentTarget.dataset.id,
       taskIdNow: e.currentTarget.dataset.taskid
@@ -216,7 +215,6 @@ Page({
     markTask({ mark: "finished", taskId }).then(() => {
       toDos[id].isFinished = 'yes';
       if ("num" in toDos[id]) {
-        console.log(toDos[id].num);
         clearTimeout(toDos[id].num);
       }
       that.setData({

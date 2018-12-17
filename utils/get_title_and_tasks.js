@@ -1,10 +1,10 @@
 module.exports = function (title) {
   let re = ''
   switch(title) {
-    case 'finish':
+    case 'finished':
       re = '已完成的任务';
       break;
-    case 'fail':
+    case 'expired':
       re = '逾期任务';
       break;
     case 'history':

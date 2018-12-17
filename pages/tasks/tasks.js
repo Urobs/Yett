@@ -1,22 +1,20 @@
 const getTitleAndList = require('../../utils/get_title_and_tasks');
+const app = getApp();
+const getTaskList = (type) => {
+  return app.globalData.tasks[type];
+};
 
 Page({
   data: {
     title: '',
-    tasks: [
-      {
-        id: 1,
-        desc: 'hellowold'
-      }, {
-        id: 2,
-        desc: 'nonono'
-      }
-    ]
+    tasks: []
   },
   onLoad(option) {
     const title = getTitleAndList(option.case);
+    const tasks = getTaskList(option.case);
     this.setData({
-      title
+      title,
+      tasks
     });
   },
 })

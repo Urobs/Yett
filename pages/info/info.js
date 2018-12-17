@@ -38,16 +38,19 @@ Page({
       getTasksList(sort, 50, 0).then((res) => {
         let d = {};
         const count = res.count;
-        console.log(res);
+        const rows = res.rows;
         switch(sort) {
           case 'finished':
             d = { finishedNum: count };
+            app.globalData.tasks.finished = formatTodo(rows);
             break;
           case 'expired':
             d = { expiredNum: count };
+            app.globalData.tasks.expired = formatTodo(rows);
             break;
           case 'all':
             d = { historyNum: count };
+            app.globalData.tasks.history = formatTodo(rows);
             break;
         }
         that.setData(d);
