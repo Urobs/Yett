@@ -1,6 +1,7 @@
 const weightEnum = require('../../utils/weight_enum');
 const clock = require('../../utils/format_clock');
 const { $Message, $Toast } = require('../../ui/dist/base/index');
+const url = require('../../config').url;
 const app = getApp();
 
 Page({
@@ -117,7 +118,7 @@ Page({
       weight += '';
       requests.push(new Promise((resolve, reject) => {
         wx.request({
-          url: 'http://localhost:3000/api/tasks',
+          url: url + '/api/tasks',
           method: 'POST',
           data: {
             content,

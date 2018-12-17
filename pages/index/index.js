@@ -1,7 +1,8 @@
 const formatTodo = require('../../utils/format_todo');
 const { $Message, $Toast } = require('../../ui/dist/base/index');
+const url = require('../../config').url;
 const app = getApp();
-const { authorization } = app.globalData;
+let authorization = '';
 
 const findTodoById = (id, arr) => {
   for (let i = 0; i < arr.length; i++ ) {
@@ -14,7 +15,7 @@ const findTodoById = (id, arr) => {
 const markTask = ({mark, taskId}) => {
   return new Promise((reslove, reject) => {
     wx.request({
-      url: 'http://localhost:3000/api/tasks/'+taskId,
+      url: url + '/api/tasks/'+taskId,
       method: 'PUT',
       header: {
         authorization
@@ -35,6 +36,7 @@ const markTask = ({mark, taskId}) => {
 
 Page({
   data: {
+    isLoad: false,
     offset: 0,
     limit: 20,
     touchBtn: false,
@@ -72,7 +74,44 @@ Page({
     ]
   },
   onLoad: function () {
+    // 检查是否有token以及是否过期
+    const expiredTime = wx.getStorageSync('expiredIn') || '';
+    const currentTime = new Date().getTime();
+    // 如果token过期或者缓存中没有token
+    if (expiredTime < currentTime || !expiredTime) {
+      // 登录
+      wx.login({
+        success: res => {
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          if (res.code) {
+            wx.request({
+              url: `${url}/api/login/${res.code}`,
+              success: res => {
+                if (res.statusCode === 200) {
+                  const { token, expiredIn } = res.data;
+                  wx.setStorageSync('token', token);
+                  wx.setStorageSync('expiredIn', expiredIn);
+                  app.globalData.authorization = 'Bearer ' + token;
+                  authorization = app.globalData.authorization;
+                  wx.startPullDownRefresh();
+                } else {
+                  console.log('登陆失败:' + res.data.message);
+                }
+              },
+            });
+          } else {
+            console.log('登陆失败!' + res.errMsg);
+          }
+        }
+      });
+    } else {
+      console.log('从缓存中获取token');
+      const token = wx.getStorageSync('token');
+      app.globalData.authorization = 'Bearer ' + token;
+      authorization = app.globalData.authorization;
+    }
     this.setData({
+      isLoad: true,
       isLoading: false
     });
   },
@@ -91,14 +130,17 @@ Page({
     });
   },
   onShow() {
-    wx.startPullDownRefresh();    
+    if (!this.data.isLoad) {
+      wx.startPullDownRefresh();
+    }    
   },
   getTodayData() {
     const { offset, limit } = this.data;
     let toDos = null;
+    console.log(authorization);
     return new Promise((reslove, reject) => {
       wx.request({
-        url: 'http://localhost:3000/api/tasks',
+        url: url + '/api/tasks',
         header: {
           authorization
         },
@@ -274,7 +316,7 @@ Page({
     });
     // 模拟promise异步
     wx.request({
-      url: 'http://localhost:3000/api/tasks/'+taskId,
+      url: url + '/api/tasks/'+taskId,
       method: 'DELETE',
       header: {
         authorization
@@ -320,6 +362,9 @@ Page({
     if (tasksNum >= 15) {
       this.toast('注意休息，任务别太多喽', 'warning');
     } else {
+      this.setData({
+        isLoad: false
+      })
       wx.navigateTo({
         url: '../add/add'
       });
