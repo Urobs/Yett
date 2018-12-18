@@ -22,7 +22,7 @@
   </i-action-sheet>
   <view wx:if="{{toDos.length === 0}}"> <i-alert show-icon>你今天还没有任务哦~快去添加吧</i-alert> </view>
   <view class="todo-list" wx:for="{{toDos}}" wx:key="id">
-    <i-swipeout i-class="swipeout-box" toggle="{{toggle}}" swipe1="{{((item.isFinished === 'yes')||(item.isExpired === 'yes'))?false:true}}" swipe="true">
+    <i-swipeout i-class="swipeout-box" toggle="{{toggle}}" swipe="{{((item.isFinished === 'yes')||(item.isExpired === 'yes'))?false:true}}">
       <view i-class="swipeout-content" slot="content">
         <view wx:if="{{item.isFinished === 'yes'}}" class="todo-image" style="background-color:#19be6b;">
           <i-icon type="success" size="25" color="#f8f8f9"></i-icon>

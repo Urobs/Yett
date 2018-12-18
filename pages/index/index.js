@@ -3,6 +3,7 @@ const { $Message, $Toast } = require('../../ui/dist/base/index');
 const url = require('../../config').url;
 const app = getApp();
 let authorization = '';
+let fromAdd =  false;
 
 const findTodoById = (id, arr) => {
   for (let i = 0; i < arr.length; i++ ) {
@@ -36,7 +37,6 @@ const markTask = ({mark, taskId}) => {
 
 Page({
   data: {
-    fromAdd: false,
     offset: 0,
     limit: 20,
     touchBtn: false,
@@ -135,17 +135,14 @@ Page({
     });
   },
   onShow() {
-    if (this.data.fromAdd) {
+    if (fromAdd) {
       wx.startPullDownRefresh();
-      this.setData({
-        fromAdd: false
-      });
+      fromAdd = false;
     }    
   },
   getTodayData() {
     const { offset, limit } = this.data;
     let toDos = null;
-    console.log(authorization);
     return new Promise((reslove, reject) => {
       wx.request({
         url: url + '/api/tasks',
@@ -370,9 +367,7 @@ Page({
     if (tasksNum >= 15) {
       this.toast('注意休息，任务别太多喽', 'warning');
     } else {
-      this.setData({
-        fromAdd: true
-      })
+      fromAdd = true;
       wx.navigateTo({
         url: '../add/add'
       });

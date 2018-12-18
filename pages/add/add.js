@@ -6,7 +6,6 @@ const app = getApp();
 
 Page({
   data: {
-    isInputNull: false,
     tasks: [
       {
         content: '',
@@ -39,12 +38,14 @@ Page({
       startTime: nowStr
     });
   },
-  onInput({detail}) {
-    if (detail==='') {
+  onInput(e) {
+      const id = e.currentTarget.dataset.id;
+      const tasks = this.data.tasks;
+      const content = e.detail.detail.value;
+      tasks[id].content = content;
       this.setData({
-        isInputNull: true
+        tasks
       });
-    }
   },
   changeTaskNum({detail}) {
     const tasks = this.data.tasks;
@@ -113,7 +114,6 @@ Page({
     that.toast('上传中','loading',0);
     tasks.forEach(task => {
       let { content, expireTime, weight } = task;
-      content = 'test'
       expireTime = clock(expireTime);
       weight += '';
       requests.push(new Promise((resolve, reject) => {

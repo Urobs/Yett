@@ -1,7 +1,6 @@
 {
   "usingComponents": {
     "i-button": "../../ui/dist/button/index",
-    "i-card": "../../ui/dist/card/index",
     "i-swipeout": "../../ui/dist/swipeout/index",
     "i-count-down": "../../ui/dist/count-down/index",
     "i-icon": "../../ui/dist/icon/index",
