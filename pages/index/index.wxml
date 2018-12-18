@@ -1,4 +1,9 @@
 <!--index.wxml-->
+<view wx:if="{{isLoading}}" class="loading">
+    <i-spin custom>
+      <view class="loading-i"></view>
+    </i-spin>
+</view>
 <scroll-view class="container" scroll-y="{{true}}" lower-threshold="50px">
   <i-message id="message" />
   <i-toast id="toast" />
@@ -45,7 +50,7 @@
     </i-swipeout>
   </view>
   <view class="load-more">
-  <i-load-more i-class="load-more" loading="{{isLoading}}"></i-load-more>
+  <i-load-more i-class="load-more" loading="{{false}}"></i-load-more>
   </view>
 </scroll-view>
 <view class="float-btn {{touchBtn?'float-btn-active':'float-btn-default'}}" bind:touchstart="btnActive" bind:touchend="btnStop" bind:touchcancel="btnStop" bind:tap="addTodo">

@@ -10,6 +10,8 @@
     "i-message": "../../ui/dist/message/index",
     "i-toast": "../../ui/dist/toast/index",
     "i-panel": "../../ui/dist/panel/index",
-    "i-alert": "../../ui/dist/alert/index"
-  }
+    "i-alert": "../../ui/dist/alert/index",
+    "i-spin": "../../ui/dist/spin/index"
+  },
+  "enablePullDownRefresh": true
 }

@@ -40,7 +40,7 @@ Page({
     offset: 0,
     limit: 20,
     touchBtn: false,
-    idLoading: true,
+    isLoading: true,
     toDoIdNow: 0,
     taskIdNow: 0,
     toggle: false,
@@ -112,21 +112,24 @@ Page({
       authorization = app.globalData.authorization;
       wx.startPullDownRefresh();
     }
-    this.setData({
-      isLoad: true,
-      isLoading: false
-    });
   },
   onPullDownRefresh() {
     const that = this;
+    that.setData({
+      isLoading: true
+    });
     this.getTodayData().then(toDos => {
       that.setData({
-        toDos
+        toDos,
+        isLoading: false
       });
       that.setTaskReadyExpired();
       wx.stopPullDownRefresh();
     }).catch(err => {
       console.log(err);
+      that.setData({
+        isLoading: false
+      });
       that.alertError('刷新失败');
       wx.stopPullDownRefresh();
     });
