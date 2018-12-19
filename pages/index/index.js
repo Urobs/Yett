@@ -40,7 +40,7 @@ Page({
     offset: 0,
     limit: 20,
     touchBtn: false,
-    isLoading: true,
+    isLoading: false,
     toDoIdNow: 0,
     taskIdNow: 0,
     toggle: false,
@@ -75,11 +75,12 @@ Page({
   },
   onLoad: function () {
     // 检查是否有token以及是否过期
-    console.log('onload is called');
     const expiredTime = wx.getStorageSync('expiredIn') || '';
     const currentTime = new Date().getTime();
+    console.log('onload is called');
     // 如果token过期或者缓存中没有token
     if (expiredTime < currentTime || !expiredTime) {
+      console.log('login');
       // 登录
       wx.login({
         success: res => {
@@ -103,6 +104,9 @@ Page({
           } else {
             console.log('登陆失败!' + res.errMsg);
           }
+        },
+        fail(err) {
+          console.log(err);
         }
       });
     } else {
